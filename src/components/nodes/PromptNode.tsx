@@ -7,13 +7,15 @@ import { BaseNodeWrapper } from './BaseNodeWrapper';
 export function PromptNode({ id, data, selected }: NodeProps) {
   const nodeData = data as PromptNodeData;
   const updateNodeData = useFlowStore((state) => state.updateNodeData);
+  const deleteNode = useFlowStore((state) => state.deleteNode);
 
   return (
     <BaseNodeWrapper 
       title={nodeData.label} 
       icon={<MessageSquare className="h-4 w-4" />}
-      color="purple"
+      variant="primary"
       selected={selected}
+      onDelete={() => deleteNode(id)}
     >
       <Textarea
         placeholder="Enter your prompt..."
@@ -24,7 +26,7 @@ export function PromptNode({ id, data, selected }: NodeProps) {
       <Handle
         type="source"
         position={Position.Right}
-        className="!w-3 !h-3 !bg-neon-purple !border-2 !border-background"
+        className="!w-3 !h-3 !bg-node-primary !border-2 !border-background"
       />
     </BaseNodeWrapper>
   );

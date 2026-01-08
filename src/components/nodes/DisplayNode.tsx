@@ -8,6 +8,7 @@ export function DisplayNode({ id, data, selected }: NodeProps) {
   const nodeData = data as DisplayNodeData;
   const updateNodeData = useFlowStore((state) => state.updateNodeData);
   const getConnectedInputs = useFlowStore((state) => state.getConnectedInputs);
+  const deleteNode = useFlowStore((state) => state.deleteNode);
   const nodes = useFlowStore((state) => state.nodes);
   const edges = useFlowStore((state) => state.edges);
 
@@ -75,13 +76,14 @@ export function DisplayNode({ id, data, selected }: NodeProps) {
     <BaseNodeWrapper 
       title={nodeData.label} 
       icon={<Monitor className="h-4 w-4" />}
-      color="purple"
+      variant="primary"
       selected={selected}
+      onDelete={() => deleteNode(id)}
     >
       <Handle
         type="target"
         position={Position.Left}
-        className="!w-3 !h-3 !bg-neon-purple !border-2 !border-background"
+        className="!w-3 !h-3 !bg-node-primary !border-2 !border-background"
       />
 
       <div className="min-h-[80px]">

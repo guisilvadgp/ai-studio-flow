@@ -13,6 +13,7 @@ export function VideoDirectorNode({ id, data, selected }: NodeProps) {
   const nodeData = data as VideoDirectorNodeData;
   const updateNodeData = useFlowStore((state) => state.updateNodeData);
   const getConnectedInputs = useFlowStore((state) => state.getConnectedInputs);
+  const deleteNode = useFlowStore((state) => state.deleteNode);
 
   const handleGenerate = () => {
     updateNodeData(id, { isLoading: true, error: undefined });
@@ -44,15 +45,16 @@ export function VideoDirectorNode({ id, data, selected }: NodeProps) {
     <BaseNodeWrapper 
       title={nodeData.label} 
       icon={<Video className="h-4 w-4" />}
-      color="green"
+      variant="quaternary"
       selected={selected}
       isLoading={nodeData.isLoading}
       error={nodeData.error}
+      onDelete={() => deleteNode(id)}
     >
       <Handle
         type="target"
         position={Position.Left}
-        className="!w-3 !h-3 !bg-neon-green !border-2 !border-background"
+        className="!w-3 !h-3 !bg-node-quaternary !border-2 !border-background"
       />
 
       <div className="space-y-2">
@@ -123,7 +125,7 @@ export function VideoDirectorNode({ id, data, selected }: NodeProps) {
       <Handle
         type="source"
         position={Position.Right}
-        className="!w-3 !h-3 !bg-neon-green !border-2 !border-background"
+        className="!w-3 !h-3 !bg-node-quaternary !border-2 !border-background"
       />
     </BaseNodeWrapper>
   );

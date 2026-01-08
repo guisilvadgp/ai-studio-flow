@@ -10,7 +10,7 @@ import {
   addEdge,
 } from '@xyflow/react';
 
-export type NodeType = 'prompt' | 'llm' | 'imageGenerator' | 'videoDirector' | 'display';
+export type NodeType = 'prompt' | 'llm' | 'imageGenerator' | 'imageOutput' | 'videoDirector' | 'display';
 
 export interface PromptNodeData {
   type: 'prompt';
@@ -40,9 +40,18 @@ export interface ImageGeneratorNodeData {
   width: number;
   height: number;
   seed?: number;
-  outputUrl?: string;
+  imageCount?: number;
   isLoading?: boolean;
   error?: string;
+  [key: string]: unknown;
+}
+
+export interface ImageOutputNodeData {
+  type: 'imageOutput';
+  label: string;
+  imageUrl?: string;
+  index: number;
+  seed?: number;
   [key: string]: unknown;
 }
 
@@ -66,7 +75,7 @@ export interface DisplayNodeData {
   [key: string]: unknown;
 }
 
-export type FlowNodeData = PromptNodeData | LLMNodeData | ImageGeneratorNodeData | VideoDirectorNodeData | DisplayNodeData;
+export type FlowNodeData = PromptNodeData | LLMNodeData | ImageGeneratorNodeData | ImageOutputNodeData | VideoDirectorNodeData | DisplayNodeData;
 
 export type FlowNode = Node<FlowNodeData>;
 
@@ -82,6 +91,7 @@ interface FlowState {
   addNode: (node: FlowNode) => void;
   updateNodeData: <T extends FlowNodeData>(nodeId: string, data: Partial<T>) => void;
   deleteNode: (nodeId: string) => void;
+  deleteEdge: (edgeId: string) => void;
   
   setSelectedNode: (nodeId: string | null) => void;
   
@@ -132,6 +142,12 @@ export const useFlowStore = create<FlowState>((set, get) => ({
     });
   },
 
+  deleteEdge: (edgeId: string) => {
+    set({
+      edges: get().edges.filter((edge) => edge.id !== edgeId),
+    });
+  },
+
   setSelectedNode: (nodeId) => {
     set({ selectedNodeId: nodeId });
   },
@@ -147,7 +163,9 @@ export const useFlowStore = create<FlowState>((set, get) => ({
       case 'llm':
         return data.output;
       case 'imageGenerator':
-        return data.outputUrl;
+        return undefined; // Image generator doesn't have direct output anymore
+      case 'imageOutput':
+        return data.imageUrl;
       case 'videoDirector':
         return data.outputUrl;
       case 'display':

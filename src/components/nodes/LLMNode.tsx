@@ -13,6 +13,7 @@ export function LLMNode({ id, data, selected }: NodeProps) {
   const nodeData = data as LLMNodeData;
   const updateNodeData = useFlowStore((state) => state.updateNodeData);
   const getConnectedInputs = useFlowStore((state) => state.getConnectedInputs);
+  const deleteNode = useFlowStore((state) => state.deleteNode);
 
   const handleRun = async () => {
     updateNodeData(id, { isLoading: true, error: undefined, output: undefined });
@@ -63,15 +64,16 @@ export function LLMNode({ id, data, selected }: NodeProps) {
     <BaseNodeWrapper 
       title={nodeData.label} 
       icon={<Brain className="h-4 w-4" />}
-      color="cyan"
+      variant="secondary"
       selected={selected}
       isLoading={nodeData.isLoading}
       error={nodeData.error}
+      onDelete={() => deleteNode(id)}
     >
       <Handle
         type="target"
         position={Position.Left}
-        className="!w-3 !h-3 !bg-neon-cyan !border-2 !border-background"
+        className="!w-3 !h-3 !bg-node-secondary !border-2 !border-background"
       />
 
       <div className="space-y-2">
@@ -138,7 +140,7 @@ export function LLMNode({ id, data, selected }: NodeProps) {
       <Handle
         type="source"
         position={Position.Right}
-        className="!w-3 !h-3 !bg-neon-cyan !border-2 !border-background"
+        className="!w-3 !h-3 !bg-node-secondary !border-2 !border-background"
       />
     </BaseNodeWrapper>
   );

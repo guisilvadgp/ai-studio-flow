@@ -57,11 +57,11 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        neon: {
-          purple: "hsl(var(--neon-purple))",
-          cyan: "hsl(var(--neon-cyan))",
-          pink: "hsl(var(--neon-pink))",
-          green: "hsl(var(--neon-green))",
+        node: {
+          primary: "hsl(var(--node-primary))",
+          secondary: "hsl(var(--node-secondary))",
+          tertiary: "hsl(var(--node-tertiary))",
+          quaternary: "hsl(var(--node-quaternary))",
         },
       },
       borderRadius: {

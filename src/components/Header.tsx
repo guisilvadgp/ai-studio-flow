@@ -10,10 +10,10 @@ export function Header() {
     <header className="h-14 border-b border-border/50 bg-card/50 backdrop-blur-sm flex items-center justify-between px-4">
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-neon-purple to-neon-cyan flex items-center justify-center">
+          <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
             <Zap className="h-5 w-5 text-primary-foreground" />
           </div>
-          <h1 className="text-xl font-bold text-gradient-cyber">PolliNodes</h1>
+          <h1 className="text-xl font-bold text-foreground">PolliNodes</h1>
         </div>
         <span className="text-xs text-muted-foreground bg-secondary/50 px-2 py-0.5 rounded-full">
           AI Studio
@@ -27,8 +27,8 @@ export function Header() {
           </span>
         )}
         {apiKey && (
-          <div className="flex items-center gap-1 text-xs text-neon-green">
-            <div className="h-2 w-2 rounded-full bg-neon-green animate-pulse" />
+          <div className="flex items-center gap-1 text-xs text-foreground">
+            <div className="h-2 w-2 rounded-full bg-foreground animate-pulse" />
             Connected
           </div>
         )}

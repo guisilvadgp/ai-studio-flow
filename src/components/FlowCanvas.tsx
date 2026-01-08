@@ -32,7 +32,11 @@ export function FlowCanvas() {
         className="bg-background"
         defaultEdgeOptions={{
           animated: true,
-          style: { stroke: 'hsl(var(--neon-cyan))', strokeWidth: 2 },
+          style: { stroke: 'hsl(var(--foreground) / 0.4)', strokeWidth: 2 },
+        }}
+        deleteKeyCode={['Backspace', 'Delete']}
+        onEdgeClick={(_, edge) => {
+          useFlowStore.getState().deleteEdge(edge.id);
         }}
       >
         <Background 
